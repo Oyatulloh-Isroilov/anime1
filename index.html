@@ -1,40 +1,43 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Video Parameters</title>
-</head>
-<body>
-<div id="video-params"></div>
 
-<script>
-    "Hentai anime 1 = 657be356530b02972f4aaa80"
-    "Hentai anime 2 = 654cd0f1245a623ddded7270"
-const endpointUrl = 'https://cdn.amediatv.uz/api/season/v2/6540a86e5b893e3eb9cf7e5c';
+<head>
+    <title>Video Parameters</title>
+</head>
+
+<body>
+    <div id="video-params"></div>
+
+    <script>
+        "Hentai anime 1 = 657be356530b02972f4aaa80"
+        "Hentai anime 2 = 654cd0f1245a623ddded7270"
+        const endpointUrl = 'https://cdn.amediatv.uz/api/season/v2/659d21ff2dcd66241c0c0091';
 
         fetch(endpointUrl)
-        .then(response => response.json())
-        .then(data => {
-            const videoParamsDiv = document.getElementById('video-params');
+            .then(response => response.json())
+            .then(data => {
+                const videoParamsDiv = document.getElementById('video-params');
 
-            const videos = data.seria;
-            videos.forEach(video => {
-                const nomi = document.createElement('h2');
-                nomi.innerText = video.name.uz;
-                videoParamsDiv.appendChild(nomi);
-                const vid = document.createElement('iframe')
-                vid.src = video.video;
-                vid.className = "one"
-                vid.setAttribute("allowfullscreen", true)
-                videoParamsDiv.appendChild(vid);
+                const videos = data.seria;
+                videos.forEach(video => {
+                    const nomi = document.createElement('h2');
+                    nomi.innerText = video.name.uz;
+                    videoParamsDiv.appendChild(nomi);
+                    const vid = document.createElement('iframe')
+                    vid.src = video.video;
+                    vid.className = "one"
+                    vid.setAttribute("allowfullscreen", true)
+                    videoParamsDiv.appendChild(vid);
 
-            });
-        })
+                });
+            })
 
-</script>
+    </script>
 </body>
+
 </html>
 <style>
-    .one{
+    .one {
         width: 600px;
         height: 320px;
         display: flex;
