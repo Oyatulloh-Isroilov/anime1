@@ -9,8 +9,6 @@
     <div id="video-params"></div>
 
     <script>
-        "Hentai anime 1 = 657be356530b02972f4aaa80"
-        "Hentai anime 2 = 654cd0f1245a623ddded7270"
         const endpointUrl = 'https://cdn.amediatv.uz/api/season/v2/677e70c1fb5fb4d8eb4dcb7f';
 
         fetch(endpointUrl)
@@ -23,19 +21,32 @@
                     const nomi = document.createElement('h2');
                     nomi.innerText = video.name.uz;
                     videoParamsDiv.appendChild(nomi);
-                    const vid = document.createElement('iframe')
+
+                    // Video iframe
+                    const vid = document.createElement('iframe');
                     vid.src = video.video;
-                    vid.className = "one"
-                    vid.setAttribute("allowfullscreen", true)
+                    vid.className = "one";
+                    vid.setAttribute("allowfullscreen", true);
                     videoParamsDiv.appendChild(vid);
 
+                    // Yuklab olish tugmasi
+                    const downloadBtn = document.createElement('a');
+                    downloadBtn.href = video.video;
+                    downloadBtn.innerText = "⬇️ Yuklab olish";
+                    downloadBtn.setAttribute("download", "");
+                    downloadBtn.style.display = "block";
+                    downloadBtn.style.marginTop = "10px";
+                    downloadBtn.style.color = "blue";
+                    downloadBtn.style.fontSize = "18px";
+                    videoParamsDiv.appendChild(downloadBtn);
                 });
             })
-
+            .catch(error => console.error('Xatolik:', error));
     </script>
 </body>
 
 </html>
+
 <style>
     .one {
         width: 600px;
