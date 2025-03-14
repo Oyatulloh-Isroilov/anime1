@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Video Parameters</title>
+    <title>Video Yuklab Olish</title>
 </head>
 
 <body>
@@ -29,19 +29,34 @@
                     vid.setAttribute("allowfullscreen", true);
                     videoParamsDiv.appendChild(vid);
 
-                    // Yuklab olish tugmasi
-                    const downloadBtn = document.createElement('a');
-                    downloadBtn.href = video.video;
-                    downloadBtn.innerText = "⬇️ Yuklab olish";
-                    downloadBtn.setAttribute("download", "");
-                    downloadBtn.style.display = "block";
-                    downloadBtn.style.marginTop = "10px";
-                    downloadBtn.style.color = "blue";
-                    downloadBtn.style.fontSize = "18px";
-                    videoParamsDiv.appendChild(downloadBtn);
+                    // Haqiqiy video manzilini olish
+                    fetch(video.video)
+                        .then(response => response.text())
+                        .then(html => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            const videoTag = doc.querySelector("video source");
+                            if (videoTag) {
+                                const videoUrl = videoTag.src;
+
+                                // Yuklab olish tugmasi
+                                const downloadBtn = document.createElement('a');
+                                downloadBtn.href = videoUrl;
+                                downloadBtn.innerText = "⬇️ Yuklab olish";
+                                downloadBtn.setAttribute("download", "");
+                                downloadBtn.style.display = "block";
+                                downloadBtn.style.marginTop = "10px";
+                                downloadBtn.style.color = "blue";
+                                downloadBtn.style.fontSize = "18px";
+                                videoParamsDiv.appendChild(downloadBtn);
+                            } else {
+                                console.log("Video manzilini topib bo‘lmadi.");
+                            }
+                        })
+                        .catch(error => console.error('Iframe ichidan video URL olishda xatolik:', error));
                 });
             })
-            .catch(error => console.error('Xatolik:', error));
+            .catch(error => console.error('API dan ma’lumot olishda xatolik:', error));
     </script>
 </body>
 
